@@ -1,5 +1,5 @@
 // ==========================================
-// 1. СПРАВОЧНИК ГРУПП ПО КУРСАМ (Добавлена буква Б в конце)
+// 1. СПРАВОЧНИК ГРУПП ПО КУРСАМ
 // ==========================================
 const groupsData = {
     "1": ["АВ-2616Б", "АД-2616Б", "АМ-2616Б", "АМ-2626Б", "БУР-2616Б", "БУР-262Б", "БУХ-261Б", "ВЕБ-261Б", "ИИ-2616Б", "МЕХ-2616Б", "ПО-2616Б", "ПО-2626Б", "СА-2616Б", "СТ-2616Б", "СТ-2626Б", "СТ-2636Б", "ЭКС-2616Б", "ЭКС-2626Б", "ЭКС-263Б", "ЭКС1-264Б", "ЭЛ-2616Б", "ЭЛ-262Б"],
@@ -143,8 +143,10 @@ function renderInputQuestion(q) {
     }
 
     input.addEventListener('input', (e) => {
-        userAnswers[currentQuestionIndex] = e.target.value.trim();
-        if (e.target.value.trim().length > 0) {
+        // ИСПРАВЛЕНИЕ: Приводим к нижнему регистру сразу при вводе для сохранения
+        const val = e.target.value.trim().toLowerCase();
+        userAnswers[currentQuestionIndex] = val;
+        if (val.length > 0) {
             nextBtn.classList.remove('hidden');
         } else {
             nextBtn.classList.add('hidden');
@@ -285,7 +287,7 @@ backBtn.addEventListener('click', () => {
 });
 
 // ==========================================
-// 7. ИТОГИ И СОХРАНЕНИЕ (ЕДИНАЯ ФУНКЦИЯ)
+// 7. ИТОГИ И СОХРАНЕНИЕ (С ИСПРАВЛЕНИЕМ РЕГИСТРА)
 // ==========================================
 function finishQuiz() {
     score = 0;
@@ -293,7 +295,10 @@ function finishQuiz() {
         const answer = userAnswers[index];
 
         if (q.type === "input") {
-            if (answer && q.correct.includes(answer.toLowerCase())) score++;
+            // ИСПРАВЛЕНИЕ: Приводим и введенный ответ, и правильный к нижнему регистру перед проверкой
+            if (answer && q.correct.includes(answer.toLowerCase())) {
+                score++;
+            }
         } else if (q.type === "choice") {
             if (answer === q.correct) score++;
         } else if (q.type === "sort") {
@@ -329,12 +334,10 @@ function saveResult(group, score, total) {
         date: new Date().toLocaleString('ru-RU')
     };
 
-    // 1. Сохраняем локально
     let localResults = JSON.parse(localStorage.getItem('gimn_results')) || [];
     localResults.push(resultData);
     localStorage.setItem('gimn_results', JSON.stringify(localResults));
 
-    // 2. Отправляем в облако Firebase
     if (window.addResultToFirebase) {
         window.addResultToFirebase(resultData);
     } else {
