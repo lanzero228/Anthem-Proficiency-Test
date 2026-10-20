@@ -354,3 +354,25 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+function saveResult(group, score, total) {
+    const resultData = {
+        group: group,
+        score: score,
+        total: total,
+        percentage: Math.round((score / total) * 100),
+        date: new Date().toLocaleString('ru-RU')
+    };
+
+    // 1. Сохраняем локально
+    let localResults = JSON.parse(localStorage.getItem('gimn_results')) || [];
+    localResults.push(resultData);
+    localStorage.setItem('gimn_results', JSON.stringify(localResults));
+
+    // 2. Отправляем в облако Firebase
+    if (window.addResultToFirebase) {
+        window.addResultToFirebase(resultData);
+    } else {
+        console.warn("Функция Firebase не найдена. Проверьте index.html");
+    }
+}
