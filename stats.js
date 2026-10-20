@@ -1,34 +1,40 @@
 document.addEventListener('DOMContentLoaded', async () => {
+    console.log("Скрипт stats.js запущен");
+    
     let results = [];
 
-    // Пытаемся загрузить данные из Firebase
     if (window.getResultsFromFirebase) {
+        console.log("Функция Firebase найдена, пробуем загрузить данные...");
         try {
             results = await window.getResultsFromFirebase();
-            console.log("Данные из Firebase:", results); // Для отладки
+            console.log("Успешно загружено записей:", results.length);
         } catch (e) {
-            console.error("Ошибка загрузки из облака:", e);
-            // Если Firebase не ответил, берем локальные данные
-            results = JSON.parse(localStorage.getItem('gimn_results')) || [];
+            console.error("ОШИБКА при загрузке из Firebase:", e);
         }
     } else {
-        console.warn("Функция Firebase не найдена в stats.html!");
+        console.error("Функция getResultsFromFirebase НЕ НАЙДЕНА! Проверьте stats.html");
+    }
+    
+    // Если данных нет, пробуем взять локальные (на случай, если Firebase недоступен)
+    if (!results || results.length === 0) {
+        console.warn("Данных из Firebase нет, проверяем LocalStorage...");
         results = JSON.parse(localStorage.getItem('gimn_results')) || [];
+        console.log("Локальные данные:", results);
     }
     
     // Отрисовка
-    calculateGlobalStats(results);
-    calculateGroupStats(results);
+    if (results.length > 0) {
+        calculateGlobalStats(results);
+        calculateGroupStats(results);
+    } else {
+        document.getElementById('global-stats').innerHTML = "<p>Пока нет данных о прохождении теста.</p>";
+        document.getElementById('group-stats-body').innerHTML = "<tr><td colspan='4'>Нет данных</td></tr>";
+    }
 });
 
 function calculateGlobalStats(data) {
     const globalContainer = document.getElementById('global-stats');
     
-    if (!data || data.length === 0) {
-        globalContainer.innerHTML = "<p>Пока нет данных о прохождении теста.</p>";
-        return;
-    }
-
     const totalAttempts = data.length;
     const avgScore = Math.round(data.reduce((sum, item) => sum + item.percentage, 0) / totalAttempts);
     const bestScore = Math.max(...data.map(item => item.percentage));
@@ -52,11 +58,6 @@ function calculateGlobalStats(data) {
 function calculateGroupStats(data) {
     const tbody = document.getElementById('group-stats-body');
     tbody.innerHTML = "";
-
-    if (!data || data.length === 0) {
-        tbody.innerHTML = "<tr><td colspan='4'>Нет данных</td></tr>";
-        return;
-    }
 
     const groupedData = {};
     data.forEach(item => {
