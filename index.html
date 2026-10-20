@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="ru">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Тест: Знание Гимна | АПТ</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
+    <!-- Живой фон -->
     <div class="bg-container"></div>
     <div class="bg-overlay"></div>
+
     <header>
         <img src="logo.png" alt="Логотип АПТ" class="logo">
         <h1>Тестирование на знание Гимна</h1>
@@ -21,7 +21,7 @@
         <!-- Блок регистрации -->
         <section id="start-screen" class="card">
             <h2>Начать тестирование</h2>
-
+            
             <div class="form-group">
                 <label for="course-select">Выберите курс:</label>
                 <select id="course-select">
@@ -43,14 +43,17 @@
             <button id="start-btn" class="btn-primary">Начать тест</button>
         </section>
 
-        <!-- Блок с вопросами (скрыт по умолчанию) -->
+        <!-- Блок с вопросами -->
         <section id="quiz-screen" class="card hidden">
-            <div class="progress-bar">
-                <div id="progress"></div>
-            </div>
+            <div class="progress-bar"><div id="progress"></div></div>
             <h2 id="question-text">Вопрос</h2>
             <div id="options-container" class="options"></div>
-            <button id="next-btn" class="btn-primary hidden">Следующий вопрос</button>
+            
+            <!-- Кнопки навигации -->
+            <div class="nav-buttons">
+                <button id="back-btn" class="btn-secondary hidden">← Назад</button>
+                <button id="next-btn" class="btn-primary hidden">Далее →</button>
+            </div>
         </section>
 
         <!-- Блок результатов -->
@@ -58,13 +61,10 @@
             <h2>Тест завершен!</h2>
             <p>Ваш результат: <span id="score">0</span> из <span id="total">0</span></p>
             <p id="result-message"></p>
-            <a href="stats.html" class="btn-primary"
-                style="text-decoration: none; display: inline-block; margin-top: 20px; text-align: center;">Перейти к
-                статистике</a>
+            <a href="stats.html" class="btn-primary" style="text-decoration: none; display: inline-block; margin-top: 20px; text-align: center;">Перейти к статистике</a>
         </section>
     </main>
 
     <script src="script.js"></script>
 </body>
-
 </html>
