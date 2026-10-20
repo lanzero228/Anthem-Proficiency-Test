@@ -1,5 +1,5 @@
 /* =========================================
-   СТИЛЬ: Живой фон с флагом + Статичная шапка
+   СТИЛЬ: Живой фон с флагом + Компактная мобильная шапка
    ========================================= */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
@@ -50,14 +50,13 @@ body {
     width: 100vw;
     height: 100vh;
     z-index: -2;
-    background-image: url('bg.jpg'); /* Проверьте имя файла! */
+    background-image: url('bg.jpg'); 
     background-size: cover;
     background-position: center;
     transition: transform 0.15s ease-out;
-    pointer-events: none; /* Отключаем перехват кликов */
+    pointer-events: none;
 }
 
-/* На телефонах анимацию покачивания отключаем */
 @media (min-width: 768px) {
     @keyframes windSway {
         0% { transform: scale(1.05) translate(0, 0) rotate(0deg); }
@@ -85,7 +84,7 @@ body {
    ШАПКА (Header) - СТАТИЧНАЯ
    ========================================= */
 header {
-    background: rgba(10, 10, 15, 0.8);
+    background: rgba(10, 10, 15, 0.9); /* Сделали чуть плотнее */
     backdrop-filter: var(--blur-glass);
     -webkit-backdrop-filter: var(--blur-glass);
     border-bottom: 1px solid var(--border-color);
@@ -95,7 +94,7 @@ header {
     justify-content: space-between;
     flex-wrap: wrap;
     
-    /* Убрали position: sticky. Теперь шапка статична */
+    /* Строго статичная позиция */
     position: relative; 
     z-index: 100;
 }
@@ -128,7 +127,7 @@ header h1 {
    ========================================= */
 main {
     max-width: 900px;
-    margin: 2rem auto; /* Уменьшили отступ сверху, так как шапка больше не прилипает */
+    margin: 2rem auto;
     padding: 0 1.5rem;
     position: relative;
     z-index: 10;
@@ -355,7 +354,6 @@ option {
     letter-spacing: 1px;
 }
 
-/* Обертка для таблицы, чтобы она скроллилась на телефоне */
 .table-responsive {
     width: 100%;
     overflow-x: auto;
@@ -423,38 +421,57 @@ option {
    МОБИЛЬНАЯ АДАПТАЦИЯ (Телефоны)
    ========================================= */
 @media (max-width: 600px) {
+    /* --- МАКСИМАЛЬНО КОМПАКТНАЯ И СТАТИЧНАЯ ШАПКА --- */
     header {
-        flex-direction: column;
-        gap: 10px;
-        text-align: center;
-        padding: 1rem;
+        position: static !important; /* Принудительно статичная */
+        display: flex;
+        flex-direction: row; /* Элементы в строку, чтобы сэкономить высоту */
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 12px; /* Уменьшили отступы */
+        gap: 8px;
+        
+        /* Убираем тяжелый backdrop-filter, из-за которого бывают глюки на телефонах */
+        backdrop-filter: none; 
+        -webkit-backdrop-filter: none;
+        background: #0a0a0a; /* Делаем сплошной темный фон */
     }
 
     header h1 {
-        font-size: 1.1rem;
+        display: none; /* СКРЫВАЕМ ДЛИННЫЙ ЗАГОЛОВОК НА ТЕЛЕФОНЕ, чтобы шапка была тонкой */
     }
-    
+
     .logo {
+        height: 35px; /* Уменьшили логотип */
         margin-right: 0;
     }
 
+    .btn-stats {
+        padding: 8px 12px;
+        font-size: 0.8rem; /* Уменьшили текст кнопки */
+        width: auto;
+        text-align: center;
+    }
+
+    /* --- КОНТЕНТ --- */
     main {
-        margin: 1.5rem auto;
+        margin: 1rem auto; /* Уменьшили отступ сверху */
         padding: 0 1rem;
     }
 
     .card {
         padding: 1.5rem;
-        background: rgba(10, 10, 15, 0.85);
+        background: rgba(15, 15, 20, 0.9); /* Чуть плотнее для читаемости */
     }
 
     h2 {
         font-size: 1.4rem;
+        margin-bottom: 1rem;
     }
 
     .option-btn, .text-input, select, .btn-primary {
-        padding: 16px;
-        font-size: 1rem;
+        padding: 14px;
+        font-size: 0.95rem;
     }
 
     .bg-overlay {
