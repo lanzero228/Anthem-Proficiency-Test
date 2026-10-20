@@ -1,5 +1,5 @@
 /* =========================================
-   СТИЛЬ: Живой фон с флагом + Адаптивность
+   СТИЛЬ: Живой фон с флагом + Исправление мобильной прокрутки
    ========================================= */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
@@ -50,13 +50,16 @@ body {
     width: 100vw;
     height: 100vh;
     z-index: -2;
-    background-image: url('bg.png'); /* Проверьте имя файла! */
+    background-image: url('bg.jpg'); /* Проверьте имя файла! */
     background-size: cover;
     background-position: center;
     transition: transform 0.15s ease-out;
+    
+    /* ВАЖНО: Отключаем перехват кликов/свайпов фоном */
+    pointer-events: none; 
 }
 
-/* На телефонах анимацию покачивания лучше отключить для экономии батареи */
+/* На телефонах анимацию покачивания отключаем */
 @media (min-width: 768px) {
     @keyframes windSway {
         0% { transform: scale(1.05) translate(0, 0) rotate(0deg); }
@@ -77,13 +80,14 @@ body {
     height: 100vh;
     background: linear-gradient(90deg, rgba(10,10,15,0.95) 0%, rgba(10,10,15,0.7) 50%, rgba(10,10,15,0.3) 100%);
     z-index: -1;
+    pointer-events: none; /* Также отключаем перехват */
 }
 
 /* =========================================
    ШАПКА (Header)
    ========================================= */
 header {
-    background: rgba(10, 10, 15, 0.6);
+    background: rgba(10, 10, 15, 0.8); /* Чуть плотнее для мобильных */
     backdrop-filter: var(--blur-glass);
     -webkit-backdrop-filter: var(--blur-glass);
     border-bottom: 1px solid var(--border-color);
@@ -94,7 +98,7 @@ header {
     flex-wrap: wrap;
     position: sticky;
     top: 0;
-    z-index: 100;
+    z-index: 1000; /* Поднимаем выше всего контента */
 }
 
 .logo {
@@ -308,8 +312,7 @@ option {
     cursor: grab;
     user-select: none;
     transition: all 0.2s ease;
-    /* Важно для мобильных: разрешаем скролл по вертикали, но блокируем по горизонтали */
-    touch-action: pan-y; 
+    touch-action: pan-y; /* Разрешаем скролл по вертикали */
 }
 
 .sort-item.dragging {
@@ -364,7 +367,7 @@ option {
     width: 100%;
     border-collapse: collapse;
     margin-top: 1.5rem;
-    min-width: 500px; /* Чтобы таблица не сжималась слишком сильно */
+    min-width: 500px;
 }
 
 .stats-table th {
@@ -423,13 +426,20 @@ option {
 @media (max-width: 600px) {
     header {
         flex-direction: column;
-        gap: 15px;
+        gap: 10px;
         text-align: center;
         padding: 1rem;
+        
+        /* ВАЖНО: На мобильных фиксируем шапку сверху, чтобы она не перекрывала контент при скролле */
+        position: relative; 
     }
 
     header h1 {
         font-size: 1.1rem;
+    }
+    
+    .logo {
+        margin-right: 0;
     }
 
     main {
@@ -439,21 +449,19 @@ option {
 
     .card {
         padding: 1.5rem;
-        background: rgba(10, 10, 15, 0.85); /* Плотнее фон для читаемости */
+        background: rgba(10, 10, 15, 0.85);
     }
 
     h2 {
         font-size: 1.4rem;
     }
 
-    /* Увеличиваем поля для удобного нажатия пальцем */
     .option-btn, .text-input, select, .btn-primary {
         padding: 16px;
         font-size: 1rem;
     }
 
     .bg-overlay {
-        /* На телефонах делаем затемнение равномерным */
         background: linear-gradient(180deg, rgba(10,10,15,0.85) 0%, rgba(10,10,15,0.95) 100%);
     }
 
