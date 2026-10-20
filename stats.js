@@ -1,6 +1,22 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const results = JSON.parse(localStorage.getItem('gimn_results')) || [];
+document.addEventListener('DOMContentLoaded', async () => {
+    let results = [];
+
+    // Пытаемся загрузить данные из Firebase
+    if (window.getResultsFromFirebase) {
+        try {
+            results = await window.getResultsFromFirebase();
+            console.log("Данные из Firebase:", results); // Для отладки
+        } catch (e) {
+            console.error("Ошибка загрузки из облака:", e);
+            // Если Firebase не ответил, берем локальные данные
+            results = JSON.parse(localStorage.getItem('gimn_results')) || [];
+        }
+    } else {
+        console.warn("Функция Firebase не найдена в stats.html!");
+        results = JSON.parse(localStorage.getItem('gimn_results')) || [];
+    }
     
+    // Отрисовка
     calculateGlobalStats(results);
     calculateGroupStats(results);
 });
@@ -8,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
 function calculateGlobalStats(data) {
     const globalContainer = document.getElementById('global-stats');
     
-    if (data.length === 0) {
+    if (!data || data.length === 0) {
         globalContainer.innerHTML = "<p>Пока нет данных о прохождении теста.</p>";
         return;
     }
@@ -37,7 +53,7 @@ function calculateGroupStats(data) {
     const tbody = document.getElementById('group-stats-body');
     tbody.innerHTML = "";
 
-    if (data.length === 0) {
+    if (!data || data.length === 0) {
         tbody.innerHTML = "<tr><td colspan='4'>Нет данных</td></tr>";
         return;
     }
