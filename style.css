@@ -1,5 +1,5 @@
 /* =========================================
-   СТИЛЬ: Живой фон с флагом + Исправление мобильной прокрутки
+   СТИЛЬ: Живой фон с флагом + Статичная шапка
    ========================================= */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
@@ -54,9 +54,7 @@ body {
     background-size: cover;
     background-position: center;
     transition: transform 0.15s ease-out;
-    
-    /* ВАЖНО: Отключаем перехват кликов/свайпов фоном */
-    pointer-events: none; 
+    pointer-events: none; /* Отключаем перехват кликов */
 }
 
 /* На телефонах анимацию покачивания отключаем */
@@ -80,14 +78,14 @@ body {
     height: 100vh;
     background: linear-gradient(90deg, rgba(10,10,15,0.95) 0%, rgba(10,10,15,0.7) 50%, rgba(10,10,15,0.3) 100%);
     z-index: -1;
-    pointer-events: none; /* Также отключаем перехват */
+    pointer-events: none;
 }
 
 /* =========================================
-   ШАПКА (Header)
+   ШАПКА (Header) - СТАТИЧНАЯ
    ========================================= */
 header {
-    background: rgba(10, 10, 15, 0.8); /* Чуть плотнее для мобильных */
+    background: rgba(10, 10, 15, 0.8);
     backdrop-filter: var(--blur-glass);
     -webkit-backdrop-filter: var(--blur-glass);
     border-bottom: 1px solid var(--border-color);
@@ -96,9 +94,10 @@ header {
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-    position: sticky;
-    top: 0;
-    z-index: 1000; /* Поднимаем выше всего контента */
+    
+    /* Убрали position: sticky. Теперь шапка статична */
+    position: relative; 
+    z-index: 100;
 }
 
 .logo {
@@ -129,7 +128,7 @@ header h1 {
    ========================================= */
 main {
     max-width: 900px;
-    margin: 4rem auto;
+    margin: 2rem auto; /* Уменьшили отступ сверху, так как шапка больше не прилипает */
     padding: 0 1.5rem;
     position: relative;
     z-index: 10;
@@ -312,7 +311,7 @@ option {
     cursor: grab;
     user-select: none;
     transition: all 0.2s ease;
-    touch-action: pan-y; /* Разрешаем скролл по вертикали */
+    touch-action: pan-y;
 }
 
 .sort-item.dragging {
@@ -429,9 +428,6 @@ option {
         gap: 10px;
         text-align: center;
         padding: 1rem;
-        
-        /* ВАЖНО: На мобильных фиксируем шапку сверху, чтобы она не перекрывала контент при скролле */
-        position: relative; 
     }
 
     header h1 {
