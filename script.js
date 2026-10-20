@@ -2,122 +2,55 @@
 // 1. СПРАВОЧНИК ГРУПП ПО КУРСАМ
 // ==========================================
 const groupsData = {
-    "1": [
-        "АВ-2616", "АД-2616", "АМ-2616", "АМ-2626", "БУР-2616", "БУР-262", 
-        "БУХ-261", "ВЕБ-261", "ИИ-2616", "МЕХ-2616", "ПО-2616", "ПО-2626",
-        "СА-2616", "СТ-2616", "СТ-2626", "СТ-2636", "ЭКС-2616", "ЭКС-2626", 
-        "ЭКС-263", "ЭКС1-264", "ЭЛ-2616", "ЭЛ-262"
-    ],
-    "2": [
-        "АВ-2516", "АД-2516", "АМ-2516", "АМ-2526", "БУР-2516", "БУР-252",
-        "БУХ-251", "ГФ-2516", "ИС-2516", "ИС-2526", "ИС-253", "МЕХ-2516",
-        "СА-2516", "СТ-2516", "СТ-2526", "СТ-2536", "ЭКС-2516", "ЭКС-252",
-        "ЭЛ-2516", "ЭЛ-252"
-    ],
-    "3": [
-        "АВ-2416", "АВ-242", "АД-2416", "АМ-2416", "АМ-2426", "БУР-2416",
-        "БУР-242", "БУХ-241", "ГФ-2416", "ИС-2416", "ИС-2426", "ИС-243",
-        "МЕХ-2416", "СА-2416", "СТ-2416", "СТ-2426", "СТ-2436", "ЭКС-2416",
-        "ЭКС-242", "ЭКС1-243", "ЭЛ-2416", "ЭЛ-242"
-    ],
-    "4": [
-        "АВ-2316", "АД-2316", "АМ-2316", "АМ-2326", "БУР-2316", "БУР-232",
-        "ГФ-2316", "ИС-2316", "ИС-2326", "МЕХ-2316", "СА-2316", "СМ-2316",
-        "СТ-2316", "СТ-2326", "СТ-2336", "ЭКС-2316", "ЭКС-232", "ЭЛ-2316", "ЭЛ-232"
-    ]
+    "1": ["АВ-2616", "АД-2616", "АМ-2616", "АМ-2626", "БУР-2616", "БУР-262", "БУХ-261", "ВЕБ-261", "ИИ-2616", "МЕХ-2616", "ПО-2616", "ПО-2626", "СА-2616", "СТ-2616", "СТ-2626", "СТ-2636", "ЭКС-2616", "ЭКС-2626", "ЭКС-263", "ЭКС1-264", "ЭЛ-2616", "ЭЛ-262"],
+    "2": ["АВ-2516", "АД-2516", "АМ-2516", "АМ-2526", "БУР-2516", "БУР-252", "БУХ-251", "ГФ-2516", "ИС-2516", "ИС-2526", "ИС-253", "МЕХ-2516", "СА-2516", "СТ-2516", "СТ-2526", "СТ-2536", "ЭКС-2516", "ЭКС-252", "ЭЛ-2516", "ЭЛ-252"],
+    "3": ["АВ-2416", "АВ-242", "АД-2416", "АМ-2416", "АМ-2426", "БУР-2416", "БУР-242", "БУХ-241", "ГФ-2416", "ИС-2416", "ИС-2426", "ИС-243", "МЕХ-2416", "СА-2416", "СТ-2416", "СТ-2426", "СТ-2436", "ЭКС-2416", "ЭКС-242", "ЭКС1-243", "ЭЛ-2416", "ЭЛ-242"],
+    "4": ["АВ-2316", "АД-2316", "АМ-2316", "АМ-2326", "БУР-2316", "БУР-232", "ГФ-2316", "ИС-2316", "ИС-2326", "МЕХ-2316", "СА-2316", "СМ-2316", "СТ-2316", "СТ-2326", "СТ-2336", "ЭКС-2316", "ЭКС-232", "ЭЛ-2316", "ЭЛ-232"]
 };
 
 // ==========================================
 // 2. БАЗА ВОПРОСОВ
 // ==========================================
 const originalQuestions = [
-    // --- Часть 1: Ввод пропущенных слов ---
-    {
-        type: "input",
-        question: "Россия — [ ... ] наша держава,\nРоссия — любимая наша страна.",
-        correct: ["священная"]
+    { type: "input", question: "Россия — [ ... ] наша держава,\nРоссия — любимая наша страна.", correct: ["священная"] },
+    { type: "input", question: "Могучая воля, [ ... ] слава —\nТвоё достоянье на все времена!", correct: ["великая"] },
+    { type: "input", question: "Славься, Отечество наше [ ... ],\nБратских народов союз вековой,", correct: ["свободное"] },
+    { type: "input", question: "Братских народов союз [ ... ],\nПредками данная мудрость народная!", correct: ["вековой"] },
+    { type: "input", question: "От южных морей до [ ... ] края\nРаскинулись наши леса и поля.", correct: ["полярного"] },
+    { type: "input", question: "Предками данная [ ... ] народная!\nСлавься, страна! Мы гордимся тобой!", correct: ["мудрость"] },
+    { 
+        type: "sort", 
+        question: "Расположите строки финального куплета в правильном порядке:", 
+        options: ["Широкий простор для мечты и для жизни", "Нам силу даёт наша верность Отчизне.", "Грядущие нам открывают года.", "Так было, так есть и так будет всегда!"] 
     },
-    {
-        type: "input",
-        question: "Могучая воля, [ ... ] слава —\nТвоё достоянье на все времена!",
-        correct: ["великая"]
-    },
-    {
-        type: "input",
-        question: "Славься, Отечество наше [ ... ],\nБратских народов союз вековой,",
-        correct: ["свободное"]
-    },
-    {
-        type: "input",
-        question: "Братских народов союз [ ... ],\nПредками данная мудрость народная!",
-        correct: ["вековой"]
-    },
-    {
-        type: "input",
-        question: "От южных морей до [ ... ] края\nРаскинулись наши леса и поля.",
-        correct: ["полярного"]
-    },
-    {
-        type: "input",
-        question: "Предками данная [ ... ] народная!\nСлавься, страна! Мы гордимся тобой!",
-        correct: ["мудрость"]
-    },
-
-    // --- Часть 2: Сортировка (Drag & Drop) ---
-    {
-        type: "sort",
-        question: "Расположите строки финального куплета в правильном порядке:",
-        options: [
-            "Широкий простор для мечты и для жизни",
-            "Нам силу даёт наша верность Отчизне.",
-            "Грядущие нам открывают года.",
-            "Так было, так есть и так будет всегда!"
-        ]
-    },
-
-    // --- Часть 3: Выбор варианта ---
-    {
-        type: "choice",
-        question: "Кто является автором современного текста гимна?",
-        options: ["Александр Пушкин", "Сергей Михалков", "Владимир Маяковский"],
-        correct: 1 
-    },
-    {
-        type: "choice",
-        question: "Кто написал музыку к гимну?",
-        options: ["Михаил Глинка", "Пётр Чайковский", "Александр Александров"],
-        correct: 2 
-    }
+    { type: "choice", question: "Кто является автором современного текста гимна?", options: ["Александр Пушкин", "Сергей Михалков", "Владимир Маяковский"], correct: 1 },
+    { type: "choice", question: "Кто написал музыку к гимну?", options: ["Михаил Глинка", "Пётр Чайковский", "Александр Александров"], correct: 2 }
 ];
 
 let questions = [];
-
-// ==========================================
-// 3. ПЕРЕМЕННЫЕ И DOM ЭЛЕМЕНТЫ
-// ==========================================
 let currentQuestionIndex = 0;
 let score = 0;
 let selectedGroup = "";
 let userAnswers = []; 
 
+// DOM Элементы
 const startScreen = document.getElementById('start-screen');
 const quizScreen = document.getElementById('quiz-screen');
 const resultScreen = document.getElementById('result-screen');
-
 const courseSelect = document.getElementById('course-select');
 const groupSelect = document.getElementById('group-select');
 const startBtn = document.getElementById('start-btn');
-
 const questionText = document.getElementById('question-text');
 const optionsContainer = document.getElementById('options-container');
 const nextBtn = document.getElementById('next-btn');
+const backBtn = document.getElementById('back-btn');
 const progress = document.getElementById('progress');
 const scoreSpan = document.getElementById('score');
 const totalSpan = document.getElementById('total');
 const resultMessage = document.getElementById('result-message');
 
 // ==========================================
-// 4. ФУНКЦИЯ ПЕРЕМЕШИВАНИЯ (Алгоритм Фишера-Йетса)
+// 3. УТИЛИТЫ
 // ==========================================
 function shuffleArray(array) {
     let currentIndex = array.length, randomIndex;
@@ -130,7 +63,7 @@ function shuffleArray(array) {
 }
 
 // ==========================================
-// 5. ЛОГИКА ВЫБОРА КУРСА И ГРУППЫ
+// 4. ЛОГИКА СТАРТА
 // ==========================================
 courseSelect.addEventListener('change', (e) => {
     const course = e.target.value;
@@ -142,7 +75,6 @@ courseSelect.addEventListener('change', (e) => {
     } else {
         groupSelect.disabled = false;
         groupSelect.innerHTML = '<option value="" hidden selected>-- Выберите группу --</option>';
-        
         groupsData[course].forEach(groupName => {
             const option = document.createElement('option');
             option.value = groupName;
@@ -172,12 +104,19 @@ startBtn.addEventListener('click', () => {
 });
 
 // ==========================================
-// 6. ОТОБРАЖЕНИЕ ВОПРОСОВ
+// 5. ОТОБРАЖЕНИЕ ВОПРОСОВ
 // ==========================================
 function loadQuestion() {
     const q = questions[currentQuestionIndex];
     optionsContainer.innerHTML = "";
+    
     nextBtn.classList.add('hidden');
+    if (currentQuestionIndex > 0) {
+        backBtn.classList.remove('hidden');
+    } else {
+        backBtn.classList.add('hidden');
+    }
+
     questionText.innerHTML = q.question.replace(/\n/g, '<br>');
     
     if (q.type === "input") {
@@ -192,7 +131,6 @@ function loadQuestion() {
     progress.style.width = progressPercent + "%";
 }
 
-// --- Вопросы с вводом текста ---
 function renderInputQuestion(q) {
     const input = document.createElement('input');
     input.type = 'text';
@@ -217,7 +155,6 @@ function renderInputQuestion(q) {
     setTimeout(() => input.focus(), 100);
 }
 
-// --- Вопросы с выбором ---
 function renderChoiceQuestion(q) {
     q.options.forEach((option, index) => {
         const btn = document.createElement('button');
@@ -239,7 +176,6 @@ function renderChoiceQuestion(q) {
     });
 }
 
-// --- Сортировка (Drag & Drop) ---
 function renderSortQuestion(q) {
     let currentOptions = [];
     
@@ -256,22 +192,56 @@ function renderSortQuestion(q) {
     const drawList = () => {
         listContainer.innerHTML = "";
         currentOptions.forEach((text, index) => {
-            const item = document.createElement('div');
-            item.className = 'sort-item';
-            item.draggable = true;
-            item.dataset.index = index;
-            item.innerHTML = `<span>${text}</span>`;
+            const wrapper = document.createElement('div');
+            wrapper.className = 'sort-item-wrapper';
+            wrapper.draggable = true;
+            wrapper.dataset.index = index;
 
-            item.addEventListener('dragstart', function(e) {
+            const textSpan = document.createElement('span');
+            textSpan.className = 'sort-item-text';
+            textSpan.textContent = text;
+
+            const controls = document.createElement('div');
+            controls.className = 'sort-controls';
+            
+            const btnUp = document.createElement('button');
+            btnUp.className = 'sort-arrow';
+            btnUp.innerHTML = '↑';
+            btnUp.disabled = index === 0;
+            btnUp.onclick = (e) => {
+                e.preventDefault();
+                [currentOptions[index - 1], currentOptions[index]] = [currentOptions[index], currentOptions[index - 1]];
+                userAnswers[currentQuestionIndex] = [...currentOptions];
+                drawList();
+            };
+
+            const btnDown = document.createElement('button');
+            btnDown.className = 'sort-arrow';
+            btnDown.innerHTML = '↓';
+            btnDown.disabled = index === currentOptions.length - 1;
+            btnDown.onclick = (e) => {
+                e.preventDefault();
+                [currentOptions[index + 1], currentOptions[index]] = [currentOptions[index], currentOptions[index + 1]];
+                userAnswers[currentQuestionIndex] = [...currentOptions];
+                drawList();
+            };
+
+            controls.appendChild(btnUp);
+            controls.appendChild(btnDown);
+
+            wrapper.appendChild(textSpan);
+            wrapper.appendChild(controls);
+
+            wrapper.addEventListener('dragstart', function(e) {
                 window.draggedItem = this;
                 window.draggedIndex = parseInt(this.dataset.index);
                 this.classList.add('dragging');
                 e.dataTransfer.effectAllowed = 'move';
             });
             
-            item.addEventListener('dragover', e => e.preventDefault());
+            wrapper.addEventListener('dragover', e => e.preventDefault());
             
-            item.addEventListener('drop', function(e) {
+            wrapper.addEventListener('drop', function(e) {
                 e.stopPropagation();
                 const targetIndex = parseInt(this.dataset.index);
                 if (window.draggedItem !== this) {
@@ -282,11 +252,11 @@ function renderSortQuestion(q) {
                 }
             });
             
-            item.addEventListener('dragend', function() {
+            wrapper.addEventListener('dragend', function() {
                 this.classList.remove('dragging');
             });
             
-            listContainer.appendChild(item);
+            listContainer.appendChild(wrapper);
         });
     };
 
@@ -296,7 +266,7 @@ function renderSortQuestion(q) {
 }
 
 // ==========================================
-// 7. ПЕРЕХОД К СЛЕДУЮЩЕМУ ВОПРОСУ
+// 6. НАВИГАЦИЯ
 // ==========================================
 nextBtn.addEventListener('click', () => {
     currentQuestionIndex++;
@@ -307,8 +277,15 @@ nextBtn.addEventListener('click', () => {
     }
 });
 
+backBtn.addEventListener('click', () => {
+    if (currentQuestionIndex > 0) {
+        currentQuestionIndex--;
+        loadQuestion();
+    }
+});
+
 // ==========================================
-// 8. ПОДВЕДЕНИЕ ИТОГОВ
+// 7. ИТОГИ И СОХРАНЕНИЕ
 // ==========================================
 function finishQuiz() {
     score = 0;
@@ -316,18 +293,12 @@ function finishQuiz() {
         const answer = userAnswers[index];
 
         if (q.type === "input") {
-            if (answer && q.correct.includes(answer.toLowerCase())) {
-                score++;
-            }
+            if (answer && q.correct.includes(answer.toLowerCase())) score++;
         } else if (q.type === "choice") {
-            if (answer === q.correct) {
-                score++;
-            }
+            if (answer === q.correct) score++;
         } else if (q.type === "sort") {
             const isCorrect = answer.every((val, i) => val === q.options[i]);
-            if (isCorrect) {
-                score++;
-            }
+            if (isCorrect) score++;
         }
     });
 
@@ -349,9 +320,6 @@ function finishQuiz() {
     saveResult(selectedGroup, score, questions.length);
 }
 
-// ==========================================
-// 9. СОХРАНЕНИЕ РЕЗУЛЬТАТОВ
-// ==========================================
 function saveResult(group, score, total) {
     let results = JSON.parse(localStorage.getItem('gimn_results')) || [];
     results.push({
@@ -365,52 +333,24 @@ function saveResult(group, score, total) {
 }
 
 // ==========================================
-// 10. ИНТЕРАКТИВНЫЙ ФОН (Реакция на мышь)
+// 8. ИНТЕРАКТИВНЫЙ ФОН
 // ==========================================
 document.addEventListener('DOMContentLoaded', () => {
     const bgContainer = document.querySelector('.bg-container');
     
     if (bgContainer) {
-        // Добавляем класс для плавного покачивания (ветер)
-        setTimeout(() => {
-            bgContainer.classList.add('wind-active');
-        }, 100);
+        setTimeout(() => { bgContainer.classList.add('wind-active'); }, 100);
 
-        // Функция проверки: находится ли курсор над интерактивным элементом
         function isInteractiveElement(target) {
-            return target.closest('button') || 
-                   target.closest('input') || 
-                   target.closest('select') || 
-                   target.closest('a') || 
-                   target.closest('.sort-item') ||
-                   target.closest('.card');
+            return target.closest('button') || target.closest('input') || target.closest('select') || 
+                   target.closest('a') || target.closest('.sort-item-wrapper') || target.closest('.card');
         }
 
-        // Эффект параллакса при движении мыши
         document.addEventListener('mousemove', (e) => {
-            // Если курсор над карточкой или кнопкой — фон не двигаем
             if (isInteractiveElement(e.target)) return;
-
-            // Вычисляем смещение (от -1 до 1)
             const x = (e.clientX / window.innerWidth - 0.5) * 2;
             const y = (e.clientY / window.innerHeight - 0.5) * 2;
-
-            // Сдвигаем фон
-            bgContainer.style.transform = `translate(${x * -20}px, ${y * -20}px) scale(1.1)`;
-        });
-
-        // При клике делаем "всплеск" ветра (только если кликнули по пустому месту)
-        document.addEventListener('click', (e) => {
-            // Если кликнули по кнопке или карточке — игнорируем
-            if (isInteractiveElement(e.target)) return;
-
-            bgContainer.style.transition = 'transform 0.1s ease-out';
-            bgContainer.style.transform += ' scale(1.05)';
-            
-            setTimeout(() => {
-                bgContainer.style.transform = bgContainer.style.transform.replace(' scale(1.05)', '');
-                bgContainer.style.transition = 'transform 0.1s ease-out';
-            }, 150);
+            bgContainer.style.transform = `translate(${x * -15}px, ${y * -15}px) scale(1.05)`;
         });
     }
 });
