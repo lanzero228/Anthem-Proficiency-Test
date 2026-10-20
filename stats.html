@@ -46,6 +46,37 @@
         </section>
     </main>
 
+    <!-- Подключение Firebase -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+        import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+
+        // Ваши ключи
+        const firebaseConfig = {
+            apiKey: "AIzaSyBjaXAX5O39EUgY6XDAL_M_c9mn_kghEJI",
+            authDomain: "anthem-proficiency-test.firebaseapp.com",
+            projectId: "anthem-proficiency-test",
+            storageBucket: "anthem-proficiency-test.firebasestorage.app",
+            messagingSenderId: "326113745350",
+            appId: "1:326113745350:web:4895915a07046acf7e7ac7",
+            measurementId: "G-0JK9X52FZH"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Функция для получения данных из облака, которую будет использовать stats.js
+        window.getResultsFromFirebase = async () => {
+            const querySnapshot = await getDocs(collection(db, "results"));
+            const results = [];
+            querySnapshot.forEach((doc) => {
+                results.push(doc.data());
+            });
+            return results;
+        };
+    </script>
+    
+    <!-- Подключение логики статистики -->
     <script src="stats.js"></script>
 </body>
 </html>
