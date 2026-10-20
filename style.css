@@ -1,0 +1,463 @@
+/* =========================================
+   СТИЛЬ: Живой фон с флагом + Адаптивность
+   ========================================= */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --bg-dark: #0a0a0a;
+    --bg-card: rgba(15, 15, 20, 0.7);
+    --bg-card-hover: rgba(25, 25, 30, 0.85);
+    
+    --text-main: #ffffff;
+    --text-muted: #cbd5e1;
+    
+    --accent-primary: #fbbf24;
+    --accent-secondary: #1e3a8a;
+    
+    --border-color: rgba(255, 255, 255, 0.15);
+    --border-highlight: rgba(255, 255, 255, 0.4);
+    
+    --blur-glass: blur(12px);
+    --radius-lg: 16px;
+    --radius-md: 12px;
+    
+    --font-family: 'Inter', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    line-height: 1.6;
+    font-family: var(--font-family);
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* =========================================
+   ЖИВОЙ ФОН (Флаг)
+   ========================================= */
+.bg-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -2;
+    background-image: url('bg.png'); /* Проверьте имя файла! */
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.15s ease-out;
+}
+
+/* На телефонах анимацию покачивания лучше отключить для экономии батареи */
+@media (min-width: 768px) {
+    @keyframes windSway {
+        0% { transform: scale(1.05) translate(0, 0) rotate(0deg); }
+        33% { transform: scale(1.05) translate(10px, -5px) rotate(0.3deg); }
+        66% { transform: scale(1.05) translate(-5px, 5px) rotate(-0.3deg); }
+        100% { transform: scale(1.05) translate(0, 0) rotate(0deg); }
+    }
+    .bg-container.wind-active {
+        animation: windSway 8s infinite ease-in-out;
+    }
+}
+
+.bg-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(90deg, rgba(10,10,15,0.95) 0%, rgba(10,10,15,0.7) 50%, rgba(10,10,15,0.3) 100%);
+    z-index: -1;
+}
+
+/* =========================================
+   ШАПКА (Header)
+   ========================================= */
+header {
+    background: rgba(10, 10, 15, 0.6);
+    backdrop-filter: var(--blur-glass);
+    -webkit-backdrop-filter: var(--blur-glass);
+    border-bottom: 1px solid var(--border-color);
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    height: 50px;
+    margin-right: 15px;
+}
+
+header h1 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    flex-grow: 1;
+}
+
+.btn-stats {
+    background: transparent;
+    color: var(--text-main);
+    padding: 10px 20px;
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+/* =========================================
+   ОСНОВНОЙ КОНТЕНТ
+   ========================================= */
+main {
+    max-width: 900px;
+    margin: 4rem auto;
+    padding: 0 1.5rem;
+    position: relative;
+    z-index: 10;
+}
+
+.card {
+    background: var(--bg-card);
+    backdrop-filter: var(--blur-glass);
+    -webkit-backdrop-filter: var(--blur-glass);
+    padding: 2.5rem;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    margin-bottom: 2rem;
+    transition: border-color 0.3s ease, background 0.3s ease;
+}
+
+.hidden {
+    display: none !important;
+}
+
+h2 {
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    font-size: 1.75rem;
+    background: linear-gradient(to right, #ffffff, #fbbf24);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* =========================================
+   ФОРМЫ И КНОПКИ
+   ========================================= */
+.form-group {
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+select {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    font-size: 1rem;
+    font-family: inherit;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: var(--text-main);
+    transition: all 0.3s ease;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23cbd5e1'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1em;
+}
+
+select:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.2);
+}
+
+select:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+option {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+    color: white;
+    border: none;
+    padding: 16px 24px;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: inherit;
+    transition: all 0.3s ease;
+    width: 100%;
+    box-shadow: 0 4px 15px rgba(30, 58, 138, 0.4);
+}
+
+/* =========================================
+   ПРОХОЖДЕНИЕ ТЕСТА
+   ========================================= */
+.progress-bar {
+    width: 100%;
+    height: 6px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 999px;
+    margin-bottom: 2rem;
+    overflow: hidden;
+}
+
+#progress {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-secondary), var(--accent-primary));
+    width: 0%;
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 999px;
+}
+
+.options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 1.5rem;
+}
+
+.option-btn {
+    padding: 18px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    background: rgba(255, 255, 255, 0.05);
+    cursor: pointer;
+    text-align: left;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: all 0.2s ease;
+    color: var(--text-main);
+}
+
+.option-btn.selected {
+    background: rgba(251, 191, 36, 0.2);
+    color: white;
+    border-color: var(--accent-primary);
+    box-shadow: inset 0 0 0 1px var(--accent-primary);
+}
+
+.text-input {
+    width: 100%;
+    padding: 16px;
+    font-size: 1.1rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    font-family: inherit;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: var(--text-main);
+}
+
+.text-input:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+    background-color: rgba(0, 0, 0, 0.7);
+    box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.2);
+}
+
+#next-btn {
+    margin-top: 1.5rem; 
+}
+
+/* Сортировка (Drag & Drop) */
+.sort-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 1.5rem;
+}
+
+.sort-item {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 16px 20px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    font-size: 1rem;
+    cursor: grab;
+    user-select: none;
+    transition: all 0.2s ease;
+    /* Важно для мобильных: разрешаем скролл по вертикали, но блокируем по горизонтали */
+    touch-action: pan-y; 
+}
+
+.sort-item.dragging {
+    opacity: 0.8;
+    transform: scale(1.02);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    border-color: var(--accent-primary);
+    background: rgba(251, 191, 36, 0.15);
+}
+
+/* =========================================
+   СТАТИСТИКА
+   ========================================= */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.stat-box {
+    background: rgba(0, 0, 0, 0.4);
+    padding: 1.5rem;
+    border-radius: var(--radius-md);
+    text-align: center;
+    border: 1px solid var(--border-color);
+}
+
+.stat-box h3 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+    color: #fff;
+}
+
+.stat-box p {
+    color: var(--text-muted);
+    font-weight: 500;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Обертка для таблицы, чтобы она скроллилась на телефоне */
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.stats-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1.5rem;
+    min-width: 500px; /* Чтобы таблица не сжималась слишком сильно */
+}
+
+.stats-table th {
+    color: var(--text-muted);
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    padding: 16px;
+    text-align: center;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.stats-table td {
+    padding: 16px;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    color: var(--text-main);
+}
+
+/* =========================================
+   ЭФФЕКТЫ ПРИ НАВЕДЕНИИ (Только для ПК)
+   ========================================= */
+@media (hover: hover) and (pointer: fine) {
+    .btn-stats:hover {
+        border-color: var(--accent-primary);
+        box-shadow: 0 0 15px rgba(251, 191, 36, 0.3);
+        background: rgba(251, 191, 36, 0.1);
+    }
+
+    .card:hover {
+        border-color: var(--border-highlight);
+        background: var(--bg-card-hover);
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(30, 58, 138, 0.6);
+        filter: brightness(1.2);
+    }
+
+    .option-btn:hover {
+        border-color: var(--accent-primary);
+        background: rgba(251, 191, 36, 0.1);
+        transform: translateX(4px);
+    }
+
+    .stat-box:hover {
+        transform: translateY(-4px);
+        border-color: var(--accent-primary);
+    }
+}
+
+/* =========================================
+   МОБИЛЬНАЯ АДАПТАЦИЯ (Телефоны)
+   ========================================= */
+@media (max-width: 600px) {
+    header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+        padding: 1rem;
+    }
+
+    header h1 {
+        font-size: 1.1rem;
+    }
+
+    main {
+        margin: 1.5rem auto;
+        padding: 0 1rem;
+    }
+
+    .card {
+        padding: 1.5rem;
+        background: rgba(10, 10, 15, 0.85); /* Плотнее фон для читаемости */
+    }
+
+    h2 {
+        font-size: 1.4rem;
+    }
+
+    /* Увеличиваем поля для удобного нажатия пальцем */
+    .option-btn, .text-input, select, .btn-primary {
+        padding: 16px;
+        font-size: 1rem;
+    }
+
+    .bg-overlay {
+        /* На телефонах делаем затемнение равномерным */
+        background: linear-gradient(180deg, rgba(10,10,15,0.85) 0%, rgba(10,10,15,0.95) 100%);
+    }
+
+    .stat-box h3 {
+        font-size: 2rem;
+    }
+}

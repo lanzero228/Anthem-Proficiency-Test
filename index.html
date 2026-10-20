@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тест: Знание Гимна | АПТ</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="bg-container"></div>
+    <div class="bg-overlay"></div>
+    <header>
+        <img src="logo.png" alt="Логотип АПТ" class="logo">
+        <h1>Тестирование на знание Гимна</h1>
+        <a href="stats.html" class="btn-stats">Посмотреть статистику</a>
+    </header>
+
+    <main>
+        <!-- Блок регистрации -->
+        <section id="start-screen" class="card">
+            <h2>Начать тестирование</h2>
+
+            <div class="form-group">
+                <label for="course-select">Выберите курс:</label>
+                <select id="course-select">
+                    <option value="" hidden selected>-- Выберите курс --</option>
+                    <option value="1">I курс</option>
+                    <option value="2">II курс</option>
+                    <option value="3">III курс</option>
+                    <option value="4">IV курс</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="group-select">Выберите вашу группу:</label>
+                <select id="group-select" disabled>
+                    <option value="" hidden selected>-- Сначала выберите курс --</option>
+                </select>
+            </div>
+
+            <button id="start-btn" class="btn-primary">Начать тест</button>
+        </section>
+
+        <!-- Блок с вопросами (скрыт по умолчанию) -->
+        <section id="quiz-screen" class="card hidden">
+            <div class="progress-bar">
+                <div id="progress"></div>
+            </div>
+            <h2 id="question-text">Вопрос</h2>
+            <div id="options-container" class="options"></div>
+            <button id="next-btn" class="btn-primary hidden">Следующий вопрос</button>
+        </section>
+
+        <!-- Блок результатов -->
+        <section id="result-screen" class="card hidden">
+            <h2>Тест завершен!</h2>
+            <p>Ваш результат: <span id="score">0</span> из <span id="total">0</span></p>
+            <p id="result-message"></p>
+            <a href="stats.html" class="btn-primary"
+                style="text-decoration: none; display: inline-block; margin-top: 20px; text-align: center;">Перейти к
+                статистике</a>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
